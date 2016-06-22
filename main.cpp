@@ -1,29 +1,16 @@
 #include <iostream>
+#include <cmath>
 
 using namespace std;
 
-int main(){
-    int n;
-    int q;
-    cin >> n >> q;
-    
-    int* seqs[n];
-    for (int i=0; i<n; i++) {
-        int size;
-        cin >> size;
-        seqs[i] = new int[size];
-        for (int j=0; j<size; j++) {
-            int val;
-            cin >> val;
-            seqs[i][j] = val;
-        }
-    }
+int main() {
+//    unsigned long long a[10000000];
+//    int a[10000000];
+//    int a[10000000];
+    int* a = new int[10000000];
+//    int b[1000000];
 
-    for (int i=0; i<q; i++) {
-        int a,b;
-        cin >> a >> b;
-        cout << seqs[a][b] << endl;
-    }
+
 
     return 0;
 }
