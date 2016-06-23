@@ -21,89 +21,36 @@
 using namespace std;
 
 int main() {
+    // kaikki vaan arrayhin ja joku heap sortti lopuksi
+    // aloita keskeltä jos suurempi mene alkupäähän keskelle muuten takapäähän keskelle jne...
+
     int n, s, p, q;
 //    cin >> n >> s >> p >> q;
 //    n = 3, s = 1, p = 1, q = 1;
-    n = 10000000, s = 658061970, p = 695098531, q = 1430548937;
+    n = 100000000, s = 658061970, p = 695098531, q = 1430548937;
 
-//    long long *a = new long long[n];
-//    vector<long long> a;
-    list<long long> a;
-    list<long long>::iterator it;
-    list<long long>::iterator begin;
-    list<long long>::iterator end;
-    int b = pow(2,31);
+    //long long *a = new long long[n];
+//    list<long long> a;
+    long b = pow(2,31);
     long long value = s % b;
-    a.push_front(value);
-//    cout << "front: " << a.front() << ", back: " << a.back() << endl;
-
-    cout << value << endl;
-    it = a.begin();
-    for (int i=1; i<100000; i++) {
+//    a.push_front(value);
+    //a[0] = value;
+    int counter = 1;
+    for (int i=1; i<n; i++) {
         long long previousValue = value;
         value = value * p + q % b;
-
-        if (i%10000==0) {
-            cout << value << endl;
-            cout << i << endl;
+        //if (i % 1000000 == 0) {
+        //  cout << i << endl;
+        //}
+        if (value == previousValue) {
+            break;
         }
-
-        if (value > previousValue) {
-            begin = a.begin();
-            if (it == begin) {
-//                cout << "a0" << endl;
-                a.insert(it, value);
-            }
-//            it--;
-            while (it != begin) {
-                if (value < *it) {
-//                    cout << "aa" << endl;
-                    it++;
-                    a.insert(it, value);
-                    break;
-                } else if (value == *it) {
-//                    cout << "egrg" << endl;
-                    break;
-                }
-                it--;
-                if (it == begin) {
-//                    cout << "ab" << endl;
-                    if (value > *it) {
-                        a.insert(it,value);
-                    } else {
-                        it++;
-                        a.insert(it, value);
-                    }
-                    break;
-                }
-            }
-        } else if (value < previousValue) {
-            end = a.end();
-            if (it == end) {
-//                cout << "b0" << endl;
-                a.insert(it, value);
-            }
-//            it++;
-            while (it != end) {
-                if (value > *it) {
-//                    cout << "ba" << endl;
-                    a.insert(it, value);
-                    break;
-                } else if (value == *it) {
-//                    cout << "egrg" << endl;
-                    break;
-                }
-                it++;
-                if (it == end) {
-//                    cout << "bb" << endl;
-                    a.insert(it, value);
-                    break;
-                }
-            }
-        }
+//        a.push_back(value);
+        //a[i] = value;
+        counter++;
     }
 
-    cout << a.size() << endl;
+    cout << counter << endl;
 
     return 0;
 }
