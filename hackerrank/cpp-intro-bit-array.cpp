@@ -21,36 +21,31 @@
 using namespace std;
 
 int main() {
-    // kaikki vaan arrayhin ja joku heap sortti lopuksi
-    // aloita keskeltä jos suurempi mene alkupäähän keskelle muuten takapäähän keskelle jne...
-
     int n, s, p, q;
 //    cin >> n >> s >> p >> q;
-//    n = 3, s = 1, p = 1, q = 1;
-    n = 100000000, s = 658061970, p = 695098531, q = 1430548937;
+    n = 3, s = 1, p = 1, q = 1;
+//    n = 100000000, s = 658061970, p = 695098531, q = 1430548937;
 
-    //long long *a = new long long[n];
-//    list<long long> a;
+    int *a = new int[n];
     long b = pow(2,31);
     long long value = s % b;
-//    a.push_front(value);
-    //a[0] = value;
-    int counter = 1;
+    a[0] = value;
+//    int counter = 1;
     for (int i=1; i<n; i++) {
-        long long previousValue = value;
         value = value * p + q % b;
         //if (i % 1000000 == 0) {
-        //  cout << i << endl;
+//          cout << value << endl;
         //}
-        if (value == previousValue) {
-            break;
-        }
-//        a.push_back(value);
-        //a[i] = value;
-        counter++;
+
+        a[i] = i;
+//        counter++;
     }
 
-    cout << counter << endl;
+
+
+
+
+//    cout << counter << endl;
 
     return 0;
 }
