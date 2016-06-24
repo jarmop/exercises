@@ -12,4 +12,4 @@ add_executable(project-euler-6 project-euler/problem6.cpp)
 add_executable(project-euler-10 project-euler/problem10.cpp)
 
 add_executable(cpp-intro-bit-array hackerrank/cpp-intro-bit-array.cpp)
-add_executable(ai-bot-building-1 hackerrank/ai-bot-building-1.cpp)
+add_executable(ai-bot-building-1 hackerrank/ai-bot-building.cpp)
