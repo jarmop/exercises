@@ -3,34 +3,42 @@
 
 using namespace std;
 
-void printNum(vector<unsigned long long> v) {
-    for (int i=0; i<v.size(); i++) {
-
+void printNum(vector<short> num) {
+    int sum = 0;
+    for (int i=num.size()-1; i>=0; i--) {
+        sum += num[i];
+        cout << num[i] << ",";
     }
+    cout << endl;
+    cout << "sum = " << sum << endl;
 }
 
 int main() {
-//    cout << 1 % 10;
-//    cout << 21 * 9223372036854775808;
-//    return 0;
+    vector<short> num = {0, 0, 1};
 
-    // 94 * 85827 7728
+//    num.push_back(7);
 
-    unsigned long long n = 10;
-    vector<unsigned long long> v;
+//    printNum(num);
 
-    for (int i = n - 1; i > 0 && n>0; i--) {
-        while (n > 0 && n % 10 == 0) {
-//            cout << n << endl;
-            n = n / 10;
-//            cout << n << endl;
+    for (int n = 99; n > 1; n--) {
+        int b = 0;
+        cout << "n: " << n << endl;
+        for (int i = 0; i < num.size(); i++) {
+            int a = num[i] * n + b;
+            b = a / 10;
+            a = a % 10;
+            num[i] = a;
+//            cout << "a: " << a << ", b: " << b << endl;
         }
-        cout << i << " * " << n << endl;
-
-        n = n * i;
-
-        cout << "==== " << n << endl;
+        while (b > 0) {
+            int a = b % 10;
+            b = b / 10;
+            num.push_back(a);
+        }
+        printNum(num);
     }
 
-    cout << n;
+    printNum(num);
+
+//    cout << n;
 }
