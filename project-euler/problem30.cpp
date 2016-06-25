@@ -18,32 +18,47 @@ class Num {
     vector<int> numVector;
 public:
 //    Num(long num);
-    void operator=(long l);
-    Num& operator++();
-    Num operator++(int);
-    Num& operator--();
-    Num operator--(int);
+    void operator=(unsigned long long num);
+    void operator++();
+    void operator++(int);
+    void operator--();
+    void operator--(int);
+    friend ostream& operator<<(ostream& os, const Num& n);
 };
 
-//Num::Num(long num) {
-//    cout << "num";
-//}
-void Num::operator=(long l) {
-    cout << l << endl;
+void Num::operator=(unsigned long long num) {
+    while (num > 0) {
+        cout << num << endl;
+
+        this->numVector.push_back(num % 10);
+        num = num / 10;
+    }
+    cout << num << endl;
+
 }
-Num& Num::operator++() {
-    cout << "prefix" << endl;
-    return *this;
+void Num::operator++() {
+    cout << "Not implemented :(" << endl;
 }
-Num Num::operator++(int) {
-    cout << "post fix" << endl;
-    return *this;
+void Num::operator++(int) {
+    ++*this;
 }
-Num& Num::operator--() {
-    return *this;
+void Num::operator--() {
+    int i = 0;
+    while (i < this->numVector.size() && this->numVector[i] == 0) {
+        this->numVector[i] = 9;
+        i++;
+    }
+    this->numVector[i]--;
 }
-Num Num::operator--(int) {
-    return *this;
+void Num::operator--(int) {
+    --*this;
+}
+ostream& operator<<(ostream& os, const Num& n)
+{
+    for (int i = n.numVector.size() - 1; i >= 0; i--) {
+        os << n.numVector[i];
+    }
+    return os;
 }
 
 int main() {
@@ -58,21 +73,22 @@ int main() {
     pows.push_back(pow(8,5)); // 32768
     pows.push_back(pow(9,5)); // 59049
 
-//    cout << pows[6];
+    long max = 354294;
 
-    // vähennetään jokaista exponenttia viidesti kunnes 0
-
-//    Num* num = new Num(354294);
     Num num;
-    num = 5;
-    num++;
-    ++num;
-//    vector<short> num {};
-    // tee oma num array overloadaa+ yms.
+    num = max;
 
-//    for (int i = 354294; i > 1; i--) {
-//        int d = i % 10;
-//    }
+    cout << num << endl;
 
-    // must be under 354294
+    num--;
+    num--;
+    num--;
+    num--;
+    num--;
+
+    cout << num;
+
+
+//    for (int n = max; n > )
+
 }
