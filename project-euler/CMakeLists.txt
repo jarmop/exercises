@@ -1,0 +1,8 @@
+add_executable(project-euler-3 problem3.cpp)
+add_executable(project-euler-4 problem4.cpp)
+add_executable(project-euler-5 problem5.cpp)
+add_executable(project-euler-6 problem6.cpp)
+add_executable(project-euler-10 problem10.cpp)
+add_executable(project-euler-20 problem20.cpp)
+add_executable(project-euler-30 problem30.cpp)
+add_executable(project-euler-40 problem40.cpp Num.cpp Num.h)
