@@ -16,18 +16,31 @@ void Num::operator=(unsigned long long num) {
 
 }
 void Num::operator++() {
-    cout << "Not implemented :(" << endl;
+    int i = 0;
+    while (i < this->numVector.size() && this->numVector[i] == 9) {
+        this->numVector[i] = 0;
+        i++;
+    }
+    if (i == this->numVector.size()) {
+        this->numVector.push_back(1);
+    } else {
+        this->numVector[i]++;
+    }
 }
 void Num::operator++(int) {
     ++*this;
 }
 void Num::operator--() {
     int i = 0;
-    while (i < this->numVector.size() && this->numVector[i] == 0) {
+    while (i < this->numVector.size() - 1 && this->numVector[i] == 0) {
         this->numVector[i] = 9;
         i++;
     }
-    this->numVector[i]--;
+    if (i == this->numVector.size() - 1) {
+        this->numVector.pop_back();
+    } else {
+        this->numVector[i]--;
+    }
 }
 void Num::operator--(int) {
     --*this;
