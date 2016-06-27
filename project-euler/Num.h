@@ -7,15 +7,20 @@ using namespace std;
 
 class Num {
     vector<int> numVector;
+    // TODO Handle situations where actual value is greater than max long long
+    long long value;
 public:
-    void operator=(unsigned long long num);
+    void operator=(long long num);
+    bool operator>(long long num);
+    bool operator<(long long num);
     void operator++();
     void operator++(int);
     void operator--();
     void operator--(int);
     friend ostream& operator<<(ostream& os, const Num& n);
-    unsigned long long operator[](int i);
+    int operator[](int i);
     int length();
+    int getValue();
 };
 
 #endif //CODING_CHALLENGES_NUM_H

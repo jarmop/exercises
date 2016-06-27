@@ -6,14 +6,18 @@
 
 #include "Num.h"
 
-void Num::operator=(unsigned long long num) {
+void Num::operator=(long long num) {
+    this->value = num;
     while (num > 0) {
-//        cout << num << endl;
         this->numVector.push_back(num % 10);
         num = num / 10;
     }
-//    cout << num << endl;
-
+}
+bool Num::operator>(long long num) {
+    return this->value > num;
+}
+bool Num::operator<(long long num) {
+    return this->value < num;
 }
 void Num::operator++() {
     int i = 0;
@@ -26,6 +30,7 @@ void Num::operator++() {
     } else {
         this->numVector[i]++;
     }
+    this->value++;
 }
 void Num::operator++(int) {
     ++*this;
@@ -41,19 +46,24 @@ void Num::operator--() {
     } else {
         this->numVector[i]--;
     }
+    this->value--;
 }
 void Num::operator--(int) {
     --*this;
 }
 ostream& operator<<(ostream& os, const Num& n) {
-    for (int i = n.numVector.size() - 1; i >= 0; i--) {
-        os << n.numVector[i];
-    }
+//    for (int i = n.numVector.size() - 1; i >= 0; i--) {
+//        os << n.numVector[i];
+//    }
+    os << n.value;
     return os;
 }
-unsigned long long Num::operator[](int i) {
+int Num::operator[](int i) {
     return this->numVector[i];
 }
 int Num::length() {
     return this->numVector.size();
+}
+int Num::getValue() {
+    return this->value;
 }
