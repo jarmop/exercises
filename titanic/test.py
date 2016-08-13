@@ -194,7 +194,9 @@ def logistic_regression():
     print(scores.mean())
 
 def random_forest():
-    predictors = ["Pclass", "Sex", "Age", "SibSp", "Parch", "Fare", "Embarked"]
+    # predictors = ["Pclass", "Sex", "Age", "SibSp", "Parch", "Fare", "Embarked"]
+    # Pick only the four best features.
+    predictors = ["Pclass", "Sex", "Fare", "Title"]
 
     # Initialize our algorithm with the default paramters
     # n_estimators is the number of trees we want to make
@@ -214,7 +216,7 @@ titanic = pandas.read_csv("train.csv")
 clean_up(titanic)
 add_features(titanic)
 # clean_up_test(titanic_test)
-show_best_predictors(titanic)
+# show_best_predictors(titanic)
 # linear_regression()
 # logistic_regression()
 random_forest()
