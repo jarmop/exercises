@@ -312,8 +312,8 @@ def create_submission():
 
 # We can use the pandas library in python to read in the csv file.
 # This creates a pandas dataframe and assigns it to the titanic variable.
-titanic = pandas.read_csv("train.csv")
-titanic_test = pandas.read_csv("test.csv")
+titanic = pandas.read_csv("../data/train.csv")
+titanic_test = pandas.read_csv("../data/test.csv")
 
 clean_up(titanic)
 add_features(titanic)
