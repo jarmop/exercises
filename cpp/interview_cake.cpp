@@ -35,24 +35,34 @@ void MaxStockProfit() {
 /**
  * Question 2
  * https://www.interviewcake.com/question/cpp/product-of-other-numbers
+ * O(n)
  */
-int GetProductsOfAllIntsExceptAtIndex(const vector<int> vec) {
-    if (vec.size() < 1) {
-        return 0;
+vector<int> GetProductsOfAllIntsExceptAtIndex(const vector<int> values) {
+    vector<int> products(values.size(), 1);
+    int product_so_far = 1;
+    for (unsigned long i = 0; i < values.size(); i++) {
+        products[i] = product_so_far;
+        product_so_far *= values[i];
     }
 
-    vector<int> products;
-    int total_product = vec[0];
-    for (int i = 0; i < vec.size(); i++) {
-        total_product *= vec[i];
+    product_so_far = 1;
+    for (unsigned long i = values.size() - 1; i >= 0; i--) {
+        products[i] *= product_so_far;
+        product_so_far *= values[i];
     }
 
-    return total_product;
+    return products;
 }
 
 void ProductsOfAllIntsExceptAtIndex() {
-    const vector<int> vec = {1, 7, 3, 4};
-    cout << GetProductsOfAllIntsExceptAtIndex(vec) << endl;
+    const vector<int> values = {1, 7, 3, 4};
+    vector<int> products = GetProductsOfAllIntsExceptAtIndex(values);
+//    for (vector<int>::const_iterator i = products.begin(); i < products.end(); i++) {
+//        cout << *i << ' ';
+//    }
+    for (const auto product: products) {
+        cout << product << ' ';
+    }
 }
 
 int main() {
