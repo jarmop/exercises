@@ -112,50 +112,50 @@ int GetHighestProductOfThreeFail(const vector<int> values) {
 
 /**
  * Find three largest positive numbers and two smallest negative numbers, and get largest combination of these.
- * O(3n) time, essentially O(1) space, and works with negative numbers!
+ * O(5n) time, essentially O(1) space, and works with negative numbers!
  */
 int GetHighestProductOfThree(const vector<int>& values) {
-    vector<int> three_largest_positive;
-    vector<int> two_smallest_negative;
+    vector<int> three_largest;
+    vector<int> two_smallest;
 
     for (int value: values) {
-        if (value >= 0) {
-            for (int i = 0; i < 3; i++) {
-                if (three_largest_positive.size() < i + 1) {
-                    three_largest_positive.push_back(value);
-                    continue;
-                }
-                if (value > three_largest_positive[i]) {
-                    int temp = three_largest_positive[i];
-                    three_largest_positive[i] = value;
-                    value = temp;
-                }
+        for (int i = 0; i < 3; i++) {
+            if (three_largest.size() < i + 1) {
+                three_largest.push_back(value);
+                continue;
             }
-        } else {
-            for (int i = 0; i < 2; i++) {
-                if (two_smallest_negative.size() < i + 1) {
-                    two_smallest_negative.push_back(value);
-                    continue;
-                }
-                if (value < two_smallest_negative[i]) {
-                    int temp = two_smallest_negative[i];
-                    two_smallest_negative[i] = value;
-                    value = temp;
-                }
+            if (value > three_largest[i]) {
+                int temp = three_largest[i];
+                three_largest[i] = value;
+                value = temp;
+            }
+        }
+        for (int i = 0; i < 2; i++) {
+            if (two_smallest.size() < i + 1) {
+                two_smallest.push_back(value);
+                continue;
+            }
+            if (value < two_smallest[i]) {
+                int temp = two_smallest[i];
+                two_smallest[i] = value;
+                value = temp;
             }
         }
     }
 
     int highest_product_of_three = 1;
-    for (int value: three_largest_positive) {
+    for (int value: three_largest) {
         highest_product_of_three *= value;
     }
 
-    if (two_smallest_negative.size() == 2) {
-        highest_product_of_three = max(highest_product_of_three, three_largest_positive[0] * two_smallest_negative[0] * two_smallest_negative[1]);
+    int product_of_two_smallest = 0;
+    if (two_smallest.size() == 2) {
+        product_of_two_smallest = two_smallest[0] * two_smallest[1];
+    } else if (two_smallest.size() == 1) {
+        product_of_two_smallest = three_largest[2] * two_smallest[0];
     }
 
-    return highest_product_of_three;
+    return max(highest_product_of_three, three_largest[0] * product_of_two_smallest);
 }
 
 /**
@@ -168,7 +168,9 @@ int GetHighestProductOfThree(const vector<int>& values) {
 
 void HighestProductOfThree() {
 //    vector<int> values = {1,2,5,2,7};
-    vector<int> values = {-10,-10,1,3,2};
+//    vector<int> values = {-10,-10,1,3,2};
+//    vector<int> values = {-10,-10,-1,-3,-2};
+    vector<int> values = {-10,-10,1,3};
     cout << GetHighestProductOfThree(values) << endl;
 }
 
