@@ -4,7 +4,7 @@
 using namespace std;
 
 /**
- * Question 1
+ ************ Question 1 *************************
  * https://www.interviewcake.com/question/python/stock-price
  * O(n)
  */
@@ -33,7 +33,7 @@ void MaxStockProfit() {
 }
 
 /**
- * Question 2
+ ************ QUESTION 2 ******************************
  * https://www.interviewcake.com/question/cpp/product-of-other-numbers
  * O(n)
  */
@@ -65,8 +65,119 @@ void ProductsOfAllIntsExceptAtIndex() {
     }
 }
 
+/**
+ *************** QUESTION 3 ******************************
+ * https://www.interviewcake.com/question/cpp/highest-product-of-3
+ * Brute force O(n^3)
+ */
+int GetHighestProductOfThreeN3(const vector<int> values) {
+    int highest_product = values[0] * values[1] * values[2];
+    for (int i = 0; i < values.size(); i++) {
+        for (int j = 0; j < values.size(); j++) {
+            for (int k = 0; k < values.size(); k++) {
+                if (i != j && i != k && j != k) {
+                    highest_product = max(highest_product, values[i] * values[j] * values[k]);
+                }
+            }
+        }
+    }
+    return highest_product;
+}
+
+/**
+ * You would think you only need three largest, which could be done in O(3n), but that actually fails with negative numbers (- * - = +)
+ */
+int GetHighestProductOfThreeFail(const vector<int> values) {
+    vector<int> three_largest;
+    for (auto value: values) {
+        for (int i = 0; i < 3; i++) {
+            if (three_largest.size() < i + 1) {
+                three_largest.push_back(value);
+            }
+            if (value > three_largest[i]) {
+                int temp = three_largest[i];
+                three_largest[i] = value;
+                value = temp;
+            }
+        }
+    }
+
+    int highest_product_of_three = 1;
+    for (const auto value: three_largest) {
+        highest_product_of_three *= value;
+    }
+
+    return highest_product_of_three;
+}
+
+/**
+ * Find three largest positive numbers and two smallest negative numbers, and get largest combination of these.
+ * O(3n) time, essentially O(1) space, and works with negative numbers!
+ */
+int GetHighestProductOfThree(const vector<int>& values) {
+    vector<int> three_largest_positive;
+    vector<int> two_smallest_negative;
+
+    for (int value: values) {
+        if (value >= 0) {
+            for (int i = 0; i < 3; i++) {
+                if (three_largest_positive.size() < i + 1) {
+                    three_largest_positive.push_back(value);
+                    continue;
+                }
+                if (value > three_largest_positive[i]) {
+                    int temp = three_largest_positive[i];
+                    three_largest_positive[i] = value;
+                    value = temp;
+                }
+            }
+        } else {
+            for (int i = 0; i < 2; i++) {
+                if (two_smallest_negative.size() < i + 1) {
+                    two_smallest_negative.push_back(value);
+                    continue;
+                }
+                if (value < two_smallest_negative[i]) {
+                    int temp = two_smallest_negative[i];
+                    two_smallest_negative[i] = value;
+                    value = temp;
+                }
+            }
+        }
+    }
+
+    int highest_product_of_three = 1;
+    for (int value: three_largest_positive) {
+        highest_product_of_three *= value;
+    }
+
+    if (two_smallest_negative.size() == 2) {
+        highest_product_of_three = max(highest_product_of_three, three_largest_positive[0] * two_smallest_negative[0] * two_smallest_negative[1]);
+    }
+
+    return highest_product_of_three;
+}
+
+/**
+ * Bonus questions for question 3:
+ * 1. highest product of k items?
+ * - Pass k as a parameter (amount of largest positive). Amount of smallest negative is k/2*2. And then just replace hard coded values 3 and 2 with these values. O(kn)
+ * 2. Protect against overflow?
+ * - use long long for the highest product
+ */
+
+void HighestProductOfThree() {
+//    vector<int> values = {1,2,5,2,7};
+    vector<int> values = {-10,-10,1,3,2};
+    cout << GetHighestProductOfThree(values) << endl;
+}
+
+/********* QUESTION 4 ***********/
+
+
 int main() {
 //    MaxStockProfit();
-    ProductsOfAllIntsExceptAtIndex();
+//    ProductsOfAllIntsExceptAtIndex();
+    HighestProductOfThree();
 }
 
