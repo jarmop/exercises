@@ -114,7 +114,7 @@ int GetHighestProductOfThreeFail(const vector<int> values) {
  * Find three largest positive numbers and two smallest negative numbers, and get largest combination of these.
  * O(5n) time, essentially O(1) space, and works with negative numbers!
  */
-int GetHighestProductOfThree(const vector<int>& values) {
+int GetHighestProductOfThree(const vector<int> &values) {
     vector<int> three_largest;
     vector<int> two_smallest;
 
@@ -170,16 +170,85 @@ void HighestProductOfThree() {
 //    vector<int> values = {1,2,5,2,7};
 //    vector<int> values = {-10,-10,1,3,2};
 //    vector<int> values = {-10,-10,-1,-3,-2};
-    vector<int> values = {-10,-10,1,3};
+    vector<int> values = {-10, -10, 1, 3};
     cout << GetHighestProductOfThree(values) << endl;
 }
 
 /********* QUESTION 4 ***********/
+// I made two versions. I was thinking version 1 would lead to trouble with references, but they both seem to work just fine.
+// Note to myself: learn pointers and references backwards and forwards
+// O(2n log n) time, O(2n) space
 
+struct Meeting {
+    int start, end;
+    Meeting(int, int);
+};
+
+Meeting::Meeting(int start_, int end_) {
+    start = start_;
+    end = end_;
+}
+
+bool MeetingComparisonFunction(Meeting meeting1, Meeting meeting2) {
+    return meeting1.start < meeting2.start;
+}
+
+/**
+ * Version 1
+ */
+vector<Meeting> merge_ranges(const vector<Meeting> &meetings) {
+    vector<Meeting> sorted_meetings(meetings);
+    sort(sorted_meetings.begin(), sorted_meetings.end(), MeetingComparisonFunction);
+    vector<Meeting> merged_meetings;
+    Meeting merged_meeting(meetings[0].start, meetings[0].end);
+    for (auto it = ++sorted_meetings.begin(); it != sorted_meetings.end(); ++it) {
+        if (it->start <= merged_meeting.end) {
+            merged_meeting.end = max(merged_meeting.end, it->end);
+        } else {
+            merged_meetings.push_back(merged_meeting);
+            merged_meeting = *it;
+        }
+    }
+    merged_meetings.push_back(merged_meeting);
+
+    return merged_meetings;
+}
+
+/**
+ * Version 2
+ */
+vector<Meeting> merge_ranges2(const vector<Meeting> &meetings) {
+    vector<Meeting> sorted_meetings(meetings);
+    sort(sorted_meetings.begin(), sorted_meetings.end(), MeetingComparisonFunction);
+    vector<Meeting> merged_meetings;
+    int start = meetings[0].start;
+    int end = meetings[0].end;
+    for (auto it = ++sorted_meetings.begin(); it != sorted_meetings.end(); ++it) {
+        if (it->start <= end) {
+            end = max(end, it->end);
+        } else {
+            merged_meetings.push_back(Meeting(start, end));
+            start = it->start;
+            end = it->end;
+        }
+    }
+    merged_meetings.push_back(Meeting(start, end));
+
+    return merged_meetings;
+}
+
+void MergingRanges() {
+    vector<Meeting> meetings = {Meeting(0, 1), Meeting(3, 5), Meeting(4, 8), Meeting(1, 5), Meeting(10, 12), Meeting(9, 10)};
+
+    for (Meeting &meeting: merge_ranges(meetings)) {
+        cout << "(" << meeting.start << "," << meeting.end << "), ";
+    }
+}
 
 int main() {
 //    MaxStockProfit();
 //    ProductsOfAllIntsExceptAtIndex();
-    HighestProductOfThree();
+//    HighestProductOfThree();
+    MergingRanges();
 }
 
