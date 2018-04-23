@@ -1,4 +1,6 @@
-function solution(A, B, K) {
+// Lesson 5 Prefix Sums
+
+function countDiv(A, B, K) {
   if (K > B && B !== 0) {
     return 0
   }
@@ -16,5 +18,5 @@ let tests = [
 ];
 
 for (test of tests) {
-  console.log(solution(...test));
+  console.log(countDiv(...test));
 }
