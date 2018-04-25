@@ -23,10 +23,19 @@ describe('sorting', () => {
       1
     ],
     [
-      [1, 1, 2, 3, 5] ,
+      [1, 1, 2, 3, 5],
       0
     ],
   ]).test('triangle', (A, expected) => {
     expect(sorting.triangle(A)).toBe(expected);
+  });
+
+  each([
+    [
+      [10,2,5,1,1,2,8,10,5,13,8,20],
+      7
+    ],
+  ]).test('distinct', (A, expected) => {
+    expect(sorting.distinct(A)).toBe(expected);
   });
 });

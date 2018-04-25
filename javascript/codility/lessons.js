@@ -38,5 +38,11 @@ export const sorting = {
     }
 
     return hasTriangle;
+  },
+  distinct: (A) => {
+    let distinct = {};
+    A.forEach(value => distinct[value] = 1);
+
+    return Object.keys(distinct).length;
   }
 };
